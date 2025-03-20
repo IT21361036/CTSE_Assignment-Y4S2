@@ -22,13 +22,26 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 // Routes
 app.use('/api', productRoutes);
 
+// Define a route for the root URL
+app.get('/', (req, res) => {
+  res.send('Welcome to the CTSE Assignment Application!');
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-}); 
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} is already in use. Please use a different port.`);
+    process.exit(1);
+  } else {
+    throw err;
+  }
+});

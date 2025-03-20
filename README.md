@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Product Management Microservice
 
 ## SLIIT - Current Trends in Software Engineering (SE4010)
@@ -98,3 +99,6 @@ This project implements a Product Management microservice as part of a larger mi
 
 ### Installation
 1. Clone the repository
+=======
+# CTSE_Assignment-Y4S2
+>>>>>>> b2e7962 (Initial commit)
