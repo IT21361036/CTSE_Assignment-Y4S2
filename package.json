@@ -1,0 +1,18 @@
+{
+  "name": "product-management-service",
+  "version": "1.0.0",
+  "description": "Product management microservice",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^6.13.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
