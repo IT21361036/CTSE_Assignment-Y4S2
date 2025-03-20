@@ -12,7 +12,7 @@ const productController = {
     }
   },
 
-  // Get all products with filtering and pagination
+  // Get all products with enhanced filtering and pagination
   async getProducts(req, res) {
     try {
       const {
@@ -23,22 +23,64 @@ const productController = {
         maxPrice,
         search,
         sortBy,
-        sortOrder = 'asc'
+        sortOrder = 'asc',
+        inStock,
+        tags,
+        createdAfter,
+        createdBefore,
+        isActive
       } = req.query;
 
-      // Build filter object
+      // Build advanced filter object
       const filter = {};
-      if (category) filter.category = category;
+
+      // Category filter
+      if (category) {
+        filter.category = category;
+      }
+
+      // Price range filter
       if (minPrice || maxPrice) {
         filter.price = {};
         if (minPrice) filter.price.$gte = Number(minPrice);
         if (maxPrice) filter.price.$lte = Number(maxPrice);
       }
+
+      // Search in name and description
       if (search) {
         filter.$or = [
           { name: { $regex: search, $options: 'i' } },
           { description: { $regex: search, $options: 'i' } }
         ];
+      }
+
+      // Stock filter
+      if (inStock === 'true') {
+        filter.stock = { $gt: 0 };
+      } else if (inStock === 'false') {
+        filter.stock = 0;
+      }
+
+      // Tags filter (multiple tags support)
+      if (tags) {
+        const tagArray = tags.split(',').map(tag => tag.trim());
+        filter.tags = { $in: tagArray };
+      }
+
+      // Date range filter
+      if (createdAfter || createdBefore) {
+        filter.createdAt = {};
+        if (createdAfter) {
+          filter.createdAt.$gte = new Date(createdAfter);
+        }
+        if (createdBefore) {
+          filter.createdAt.$lte = new Date(createdBefore);
+        }
+      }
+
+      // Active status filter
+      if (isActive !== undefined) {
+        filter.isActive = isActive === 'true';
       }
 
       // Build sort object
@@ -58,8 +100,12 @@ const productController = {
       res.json({
         products,
         totalPages: Math.ceil(count / limit),
-        currentPage: page,
-        totalProducts: count
+        currentPage: Number(page),
+        totalProducts: count,
+        filters: {
+          applied: filter,
+          sort: sort
+        }
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
