@@ -1,0 +1,45 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Login to Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t saarakaizerr/ctse-assignment:v1.0 .
+
+      # Push Docker image to Docker Hub
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push saarakaizerr/ctse-assignment:v1.0
+
+      # Deploy (Optional)
+      - name: Deploy (Optional)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          docker run -d -p 3001:3001 saarakaizerr/ctse-assignment:v1.0
