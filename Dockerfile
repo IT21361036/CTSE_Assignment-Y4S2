@@ -17,7 +17,7 @@ LABEL name="ctse-assignment"
 COPY . .
 
 # Expose the port the app runs on
-EXPOSE 3000
+EXPOSE 3001
 
 # Start the application
 CMD ["npm", "start"]
