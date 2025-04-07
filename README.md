@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Product Management Microservice
 
 ## SLIIT - Current Trends in Software Engineering (SE4010)
@@ -6,6 +5,26 @@
 
 ## Overview
 This project implements a Product Management microservice as part of a larger microservice-based application. The service provides comprehensive product management capabilities including CRUD operations, advanced filtering, and bulk operations.
+
+## Using the Docker Image
+Download the container image from Docker Hub:
+```bash
+docker pull saarakaizerr/ctse-assignment:v1.0
+```
+Run the Container
+```
+docker run -d -p 3000:3000 saarakaizerr/ctse-assignment:v1.0
+```
+-d: Runs in detached mode.
+
+-p 3000:3000: Maps port 3000 on your machine to port 3000 in the container.
+
+Access the service at http://localhost:3000.
+
+Example Usage
+```
+curl http://localhost:3001
+```
 
 ## Architecture
 ![Architecture Diagram](architecture-diagram.png)
@@ -97,8 +116,4 @@ This project implements a Product Management microservice as part of a larger mi
 - MongoDB
 - Docker
 
-### Installation
-1. Clone the repository
-=======
 # CTSE_Assignment-Y4S2
->>>>>>> b2e7962 (Initial commit)
