@@ -38,12 +38,13 @@ jobs:
     needs: build-and-push
 
     steps:
-      - name: Log in to Azure
+      - name: Deploy to Azure Container Apps
         run: |
           echo "Logging in to Azure using the Subscription and Tenant..."
           az login --tenant ${{ secrets.AZURE_TENANT_ID }}
       - name: Deploy to Azure Container Apps
         run: |
+          echo "Deploying to Azure Container Apps..
           az containerapp update \
             --name product-management-ctse \
             --resource-group ctse-rg-new \
