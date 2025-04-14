@@ -1,0 +1,25 @@
+name: Snyk Vulnerability Scan
+
+on:
+  push:
+    branches:
+      - snyk-scan  # This will only run when changes are pushed to this branch
+  workflow_dispatch:  # You can also manually trigger it
+
+jobs:
+  snyk-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Snyk CLI
+        run: |
+          npm install -g snyk
+
+      - name: Authenticate with Snyk
+        run: snyk auth ${{ secrets.SNYK_API_TOKEN }}
+
+      - name: Test for Vulnerabilities
+        run: snyk test --all-projects
