@@ -67,13 +67,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Login to Azure using OIDC
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      # Install Azure CLI
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      # Azure CLI Login (requires manual authentication first)
+      - name: Azure CLI Login
+        run: |
+          echo "Logging in to Azure"
+          az login --tenant ${{ secrets.AZURE_TENANT_ID }}
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
