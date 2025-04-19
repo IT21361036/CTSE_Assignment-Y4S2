@@ -112,6 +112,5 @@ jobs:
           az containerapp update \
             --name product-management-ctse \
             --resource-group ctse-rg-new \
-            --environment myContainerAppEnv \
             --image ctseregistry.azurecr.io/ctse-assignment:v1.3 \
             --set-env-vars "MONGODB_URI=${{ secrets.MONGODB_URI }}"
