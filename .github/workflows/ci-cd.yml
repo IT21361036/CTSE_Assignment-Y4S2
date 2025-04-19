@@ -97,7 +97,7 @@ jobs:
       # Build and Push Docker Images
       - name: Build and Push Docker Images
         run: |
-          docker push saarakaizerr/ctse-assignment:v1.0
+          docker push ctseregistry.azurecr.io/ctse-assignment:v1.3
          
       # Deploy to Azure Container Apps
       - name: Deploy to Azure Container Apps
