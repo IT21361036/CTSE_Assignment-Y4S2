@@ -95,13 +95,15 @@ jobs:
           az acr login --name ctseregistry --resource-group ctse-rg-new --expose-token
 
       # Build and Push Docker Images
-      - name: Build and Push Docker Images
+      # Build Docker image
+      - name: Build Docker image         
         run: |
-          # Build the Docker image locally
-          docker build -t ctseregistry.azurecr.io/ctse-assignment:v1.3 .
-              
-          # Push the Docker image to Azure Container Registry (ACR)
-          docker push ctseregistry.azurecr.io/ctse-assignment:v1.3
+              docker build -t saarakaizerr/ctse-assignment:v1.0 .
+
+          # Push Docker image to Docker Hub
+      - name: Push Docker image to Docker Hub
+        run: |
+              docker push saarakaizerr/ctse-assignment:v1.0
          
       # Deploy to Azure Container Apps
       - name: Deploy to Azure Container Apps
