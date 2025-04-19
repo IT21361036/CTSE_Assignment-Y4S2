@@ -97,6 +97,10 @@ jobs:
       # Build and Push Docker Images
       - name: Build and Push Docker Images
         run: |
+          # Build the Docker image locally
+          docker build -t ctseregistry.azurecr.io/ctse-assignment:v1.3 .
+              
+          # Push the Docker image to Azure Container Registry (ACR)
           docker push ctseregistry.azurecr.io/ctse-assignment:v1.3
          
       # Deploy to Azure Container Apps
