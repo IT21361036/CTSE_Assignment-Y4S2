@@ -20,14 +20,17 @@ docker run -d -p 3000:3000 saarakaizerr/ctse-assignment:v1.0
 -p 3000:3000: Maps port 3000 on your machine to port 3000 in the container.
 
 Access the service at http://localhost:3000.
-
+Acess the Service Over the Internet 
+```
+https://product-management-ctse.happysea-aff5ad2c.southindia.azurecontainerapps.io
+```
 Example Usage
 ```
 curl http://localhost:3001
 ```
 
 ## Architecture
-![Architecture Diagram](architecture-diagram.png)
+![Architecture Diagram]()
 
 ## Features
 - Complete CRUD operations for products
